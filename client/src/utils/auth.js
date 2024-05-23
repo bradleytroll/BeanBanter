@@ -1,3 +1,4 @@
+// client/src/utils/auth.js
 import jwtDecode from 'jwt-decode';
 
 class AuthService {
@@ -38,4 +39,5 @@ class AuthService {
   }
 }
 
-export default new AuthService();
+const authService = new AuthService();
+export default authService;

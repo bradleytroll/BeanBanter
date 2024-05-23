@@ -1,11 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloProvider, InMemoryCache, ApolloClient, createHttpLink } from '@apollo/client';
+import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
 import App from './App';
 import './index.css';
 
+const GRAPHQL_ENDPOINT = process.env.REACT_APP_GRAPHQL_ENDPOINT || 'http://localhost:4000/graphql';
+
 const httpLink = createHttpLink({
-  uri: 'http://localhost:4000/graphql',
+  uri: GRAPHQL_ENDPOINT,
 });
 
 const client = new ApolloClient({
