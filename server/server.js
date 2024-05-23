@@ -1,7 +1,7 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
-const { typeDefs, resolvers } = require('./schemas'); // Ensure correct import
+const { typeDefs, resolvers } = require('./schemas');
 const { authMiddleware } = require('./utils/auth');
 require('dotenv').config();
 
@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 4000;
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: authMiddleware,
+  context: ({ req }) => authMiddleware({ req }),
 });
 
 server.applyMiddleware({ app });

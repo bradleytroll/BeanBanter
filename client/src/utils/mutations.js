@@ -23,3 +23,36 @@ export const LOGIN_USER = gql`
     }
   }
 `;
+
+export const ADD_COFFEE_SHOP = gql`
+  mutation addCoffeeShop($name: String!, $location: String!, $rating: Int!, $review: String!) {
+    addCoffeeShop(name: $name, location: $location, rating: $rating, review: $review) {
+      _id
+      name
+      location
+      rating
+      review
+    }
+  }
+`;
+
+export const UPDATE_COFFEE_SHOP = gql`
+  mutation updateCoffeeShop($id: ID!, $name: String, $location: String, $rating: Int, $review: String) {
+    updateCoffeeShop(id: $id, name: $name, location: $location, rating: $rating, review: $review) {
+      _id
+      name
+      location
+      rating
+      review
+    }
+  }
+`;
+
+export const DELETE_COFFEE_SHOP = gql`
+  mutation deleteCoffeeShop($id: ID!) {
+    deleteCoffeeShop(id: $id) {
+      _id
+      name
+    }
+  }
+`;

@@ -1,4 +1,5 @@
 const { User, CoffeeShop } = require('../models');
+const { AuthenticationError } = require('apollo-server-express');
 const { signToken } = require('../utils/auth');
 
 const resolvers = {
@@ -35,12 +36,12 @@ const resolvers = {
       return { token, user };
     },
     addCoffeeShop: async (parent, args, context) => {
-      if (context.user) {
-        const coffeeShop = await CoffeeShop.create({ ...args, user: context.user._id });
-        await User.findByIdAndUpdate(context.user._id, { $push: { coffeeShops: coffeeShop._id } });
-        return coffeeShop;
-      }
-      throw new AuthenticationError('Not logged in');
+        if (context.user) {
+          const coffeeShop = await CoffeeShop.create({ ...args, user: context.user._id });
+          await User.findByIdAndUpdate(context.user._id, { $push: { coffeeShops: coffeeShop._id } });
+          return coffeeShop;
+        }
+        throw new AuthenticationError('Not logged in');
     },
     updateCoffeeShop: async (parent, { id, ...args }, context) => {
       if (context.user) {
