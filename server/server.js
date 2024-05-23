@@ -1,8 +1,8 @@
 const express = require('express');
 const { ApolloServer } = require('apollo-server-express');
 const mongoose = require('mongoose');
-const { typeDefs, resolvers } = require('./schemas');
-const { authMiddleware } = require('./utils/auth.js/auth');
+const { typeDefs, resolvers } = require('./schemas');  // Ensure this path is correct
+const { authMiddleware } = require('./utils/auth');
 require('dotenv').config();
 
 const app = express();
