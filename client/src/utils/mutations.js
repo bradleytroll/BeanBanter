@@ -24,6 +24,8 @@ export const LOGIN_USER = gql`
   }
 `;
 
+//Delete User - Christian
+
 export const ADD_COFFEE_SHOP = gql`
   mutation addCoffeeShop($name: String!, $location: String!, $rating: Int!, $review: String!) {
     addCoffeeShop(name: $name, location: $location, rating: $rating, review: $review) {
