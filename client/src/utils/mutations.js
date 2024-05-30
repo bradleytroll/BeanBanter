@@ -56,3 +56,15 @@ export const DELETE_COFFEE_SHOP = gql`
     }
   }
 `;
+
+export const DELETE_USER = gql`
+  mutation login($email: String!, $password: String!) {
+    login(email: $email, password: $password) {
+      token
+      user {
+        _id
+        username
+      }
+    }
+  }
+`;
