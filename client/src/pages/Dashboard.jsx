@@ -47,15 +47,15 @@ const Dashboard = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <div>Loading...</div>
   }
 
   if (error) {
-    return <div>Error loading data</div>;
+    return <div>Error loading data</div>
   }
 
   if (!data || !data.me) {
-    return <div>No data found</div>;
+    return <div>No data found</div>
   }
 
   return (

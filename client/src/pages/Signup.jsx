@@ -4,33 +4,47 @@ import { ADD_USER } from '../utils/mutations';
 import Auth from '../utils/auth';
 
 const Signup = () => {
-  const [formState, setFormState] = useState({ username: '', email: '', password: '' });
+  const [formState, setFormState] = useState({
+    username: '',
+    email: '',
+    password: '',
+  });
+
+  const [validated] = useState(false);
+
   const [addUser, { error }] = useMutation(ADD_USER);
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    setFormState({
-      ...formState,
-      [name]: value,
-    });
+    setFormState({ ...formState, [name]: value });
+    console.log(formState)
   };
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(formState)
+
     try {
       const { data } = await addUser({
         variables: { ...formState },
       });
+      console.log(data)
       Auth.login(data.addUser.token);
-    } catch (e) {
-      console.error(e);
+    } catch (err) {
+      console.error(err);
     }
+
+    setFormState({
+      username: '',
+      email: '',
+      password: '',
+    });
   };
 
   return (
     <div>
       <h2>Signup</h2>
-      <form onSubmit={handleFormSubmit}>
+      <form noValidate validated={validated} onSubmit={handleFormSubmit}>
         <input
           placeholder="Username"
           name="username"
@@ -38,6 +52,7 @@ const Signup = () => {
           id="username"
           value={formState.username}
           onChange={handleChange}
+          required
         />
         <input
           placeholder="Email"
@@ -46,6 +61,7 @@ const Signup = () => {
           id="email"
           value={formState.email}
           onChange={handleChange}
+          required
         />
         <input
           placeholder="Password"
@@ -54,6 +70,7 @@ const Signup = () => {
           id="password"
           value={formState.password}
           onChange={handleChange}
+          required
         />
         <button type="submit">Submit</button>
       </form>

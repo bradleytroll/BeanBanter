@@ -1,6 +1,5 @@
 const { User, CoffeeShop } = require('../models');
-const { AuthenticationError } = require('apollo-server-express');
-const { signToken } = require('../utils/auth');
+const { signToken, AuthenticationError } = require('../utils/auth');
 
 const resolvers = {
   Query: {
@@ -19,9 +18,14 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
+      try {
+        
       const user = await User.create(args);
       const token = signToken(user);
       return { token, user };
+      } catch (error) {
+        console.error(error)
+      }
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -55,11 +59,11 @@ const resolvers = {
       }
       throw new AuthenticationError('Not logged in');
     },
-    deleteuser: async (parent, args) => {
-      const user = await User.create(args);
-      const token = signToken(user);
-      return { token, user };
-    },
+    // deleteuser: async (parent, args) => {
+    //   const user = await User.create(args);
+    //   const token = signToken(user);
+    //   return { token, user };
+    // },
   },
 };
 
